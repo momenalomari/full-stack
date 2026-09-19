@@ -1,0 +1,11 @@
+import { Pool } from "pg";
+
+const pool = new Pool({
+    connectionString: process.env.SQL_URL,
+});
+
+pool.connect()
+    .then(() => console.log("Database connected successfully!"))
+    .catch((err) => console.error("Database connection error:", err));
+
+export default pool;
