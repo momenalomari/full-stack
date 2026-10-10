@@ -1,0 +1,13 @@
+import { createUserController } from "../controller/auth.controller.js";
+import { createUserSchema } from "../validation/auth.validation.js";
+import { validateRegister } from "../middleware/validate.middeleware.js";
+import { loginUserController } from "../controller/auth.controller.js";
+import { loginUserSchema } from "../validation/auth.validation.js";
+import {rateLimitLogin} from "../middleware/rate_limitLogin.middleware.js";
+import { refreshTokenController } from "../controller/auth.controller.js";
+import express from "express";
+const router = express.Router();
+router.post("/register", validateRegister(createUserSchema), createUserController);
+router.post("/login", rateLimitLogin, validateRegister(loginUserSchema), loginUserController);
+router.get ("/auth/refresh", refreshTokenController);
+export default router;  
