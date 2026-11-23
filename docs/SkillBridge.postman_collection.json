@@ -1,0 +1,144 @@
+{
+  "info": {
+    "name": "SkillBridge API",
+    "description": "Starter requests for authentication, project publishing, and proposals. Set the collection variables before use. Keep the cookie jar enabled for HttpOnly authentication cookies.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000/api" },
+    { "key": "testUsername", "value": "" },
+    { "key": "testEmail", "value": "" },
+    { "key": "testPassword", "value": "" },
+    { "key": "categoryId", "value": "" },
+    { "key": "projectId", "value": "" },
+    { "key": "proposalId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-Requested-With", "value": "XMLHttpRequest" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{testUsername}}\",\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\",\n  \"confirmPassword\": \"{{testPassword}}\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/register"
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-Requested-With", "value": "XMLHttpRequest" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\"\n}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "Current User",
+      "request": { "method": "GET", "url": "{{baseUrl}}/auth/me" }
+    },
+    {
+      "name": "Active Categories",
+      "request": { "method": "GET", "url": "{{baseUrl}}/categories" }
+    },
+    {
+      "name": "Create Project",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-Requested-With", "value": "XMLHttpRequest" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Build a portfolio website\",\n  \"description\": \"Create a responsive portfolio with project pages and a contact form.\",\n  \"budget\": 850,\n  \"category_id\": {{categoryId}},\n  \"deadline\": \"2030-12-31\"\n}"
+        },
+        "url": "{{baseUrl}}/project/create"
+      }
+    },
+    {
+      "name": "Browse Open Projects",
+      "request": { "method": "GET", "url": "{{baseUrl}}/project/projects" }
+    },
+    {
+      "name": "Project Details",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/project/projects/{{projectId}}"
+      }
+    },
+    {
+      "name": "Submit Proposal",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-Requested-With", "value": "XMLHttpRequest" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 700,\n  \"delivery_days\": 14,\n  \"technologies\": \"React, CSS, accessibility\",\n  \"cover_letter\": \"I can deliver the requested portfolio with responsive pages, accessible navigation, and a tested contact form.\"\n}"
+        },
+        "url": "{{baseUrl}}/proposal/projects/{{projectId}}"
+      }
+    },
+    {
+      "name": "My Proposals",
+      "request": { "method": "GET", "url": "{{baseUrl}}/proposal/mine" }
+    },
+    {
+      "name": "Accept Proposal (project owner)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "X-Requested-With", "value": "XMLHttpRequest" }],
+        "url": "{{baseUrl}}/proposal/{{proposalId}}/accept"
+      }
+    },
+    {
+      "name": "Submit Feedback",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-Requested-With", "value": "XMLHttpRequest" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Clear workflow and responsive communication.\"\n}"
+        },
+        "url": "{{baseUrl}}/feedback"
+      }
+    },
+    {
+      "name": "Approved Public Feedback",
+      "request": { "method": "GET", "url": "{{baseUrl}}/feedback/approved" }
+    },
+    {
+      "name": "Pending Feedback (moderator/admin)",
+      "request": { "method": "GET", "url": "{{baseUrl}}/feedback/pending" }
+    },
+    {
+      "name": "Moderator Dashboard",
+      "request": { "method": "GET", "url": "{{baseUrl}}/moderator/dashboard" }
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "X-Requested-With", "value": "XMLHttpRequest" }],
+        "url": "{{baseUrl}}/auth/logout"
+      }
+    }
+  ]
+}
