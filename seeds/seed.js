@@ -15,6 +15,7 @@ const runSeed = async () => {
     } catch (error) {
 
         console.error("Error running seed:", error);
+        process.exitCode = 1;
 
     } finally {
 

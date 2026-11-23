@@ -9,4 +9,4 @@
         ('Sports & Outdoors', 'Sporting goods and outdoor equipment', 150.00, true)
     `);
 }
-export default catigoriesSeed;
+export default catigoriesSeed ;
